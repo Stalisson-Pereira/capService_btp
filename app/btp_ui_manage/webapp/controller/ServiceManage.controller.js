@@ -2,8 +2,9 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
-    "sap/m/Dialog"
-], function (Controller, MessageToast, JSONModel, Dialog) {
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], function (Controller, MessageToast, JSONModel, Filter, FilterOperator) {
     "use strict";
 
     return Controller.extend("btpuimanage.controller.ServiceManage", {
@@ -35,22 +36,23 @@ sap.ui.define([
         },
 
         onSaveDialogCustomer: function () {
-            const oLocalData = this.getView().getModel("localData");
-            const oCustomerData = oLocalData.getProperty("/newCustomer");
+            const oModel = this.getView().getModel("localData");
+            const oNewCustomer = oModel.getProperty("/newCustomer");
 
-            // Adiciona o novo cliente na lista de clientes
-            let aCustomers = oLocalData.getProperty("/Customers");
+            // Adiciona o novo cliente à lista de clientes
+            let aCustomers = oModel.getProperty("/Customers");
             aCustomers.push({
-                description: oCustomerData.name,
-                contact: oCustomerData.contact,
-                email: oCustomerData.email
+                description: oNewCustomer.name,
+                contact: oNewCustomer.contact,
+                email: oNewCustomer.email
             });
-            oLocalData.setProperty("/Customers", aCustomers);
+            oModel.setProperty("/Customers", aCustomers);
 
-            // Mostra uma confirmação e limpa os campos do formulário
+            // Confirmação e limpeza do formulário
             MessageToast.show("Cliente registrado com sucesso!");
-            oLocalData.setProperty("/newCustomer", { name: "", contact: "", email: "" });
+            oModel.setProperty("/newCustomer", { name: "", contact: "", email: "" });
             this.byId("idDialogCustomer").close();
+
             console.log("onSaveDialogCustomer")
         },
 
@@ -64,8 +66,8 @@ sap.ui.define([
         },
 
         onSaveDialogProduct: function () {
-            const oLocalData = this.getView().getModel("localData");
-            const oProductData = {
+            const oModel = this.getView().getModel("localData");
+            const oNewProduct = {
                 name: this.byId("idInputProductName").getValue(),
                 descr: this.byId("idInputProductDesc").getValue(),
                 price: parseFloat(this.byId("idInputProductPrice").getValue()) || 0,
@@ -73,17 +75,19 @@ sap.ui.define([
             };
 
             // Adiciona o novo produto à lista de produtos
-            let aProducts = oLocalData.getProperty("/Products");
-            aProducts.push(oProductData);
-            oLocalData.setProperty("/Products", aProducts);
+            let aProducts = oModel.getProperty("/Products");
+            aProducts.push(oNewProduct);
+            oModel.setProperty("/Products", aProducts);
 
-            // Mostra uma confirmação e limpa os campos do formulário
+            // Confirmação e limpeza do formulário
             MessageToast.show("Produto registrado com sucesso!");
             this.byId("idInputProductName").setValue("");
             this.byId("idInputProductDesc").setValue("");
             this.byId("idInputProductPrice").setValue("");
             this.byId("idInputProductQuant").setValue("");
             this.byId("idDialogProduct").close();
+
+            console.log("onSaveDialogProduct")
         },
 
         onCloseDialogProduct: function () {
@@ -92,29 +96,21 @@ sap.ui.define([
 
         // Funções de busca para Clientes e Produtos
         onSearchCustomer: function (oEvent) {
-            const sQuery = oEvent.getParameter("query").toLowerCase();
-            const oTable = this.byId("idCustomersTable");
-            const oBinding = oTable.getBinding("items");
+            const sQuery = oEvent.getParameter("query");
+            const oBinding = this.byId("idCustomersTable").getBinding("items");
+            const aFilters = sQuery ? [new Filter("description", FilterOperator.Contains, sQuery)] : [];
+            oBinding.filter(aFilters);
 
-            // Filtra a tabela de clientes com base na consulta
-            oBinding.filter(new sap.ui.model.Filter({
-                path: "description",
-                operator: sap.ui.model.FilterOperator.Contains,
-                value1: sQuery
-            }));
+            console.log("onSearchCustomer")
         },
 
         onSearchProduct: function (oEvent) {
-            const sQuery = oEvent.getParameter("query").toLowerCase();
-            const oTable = this.byId("idProductsTable");
-            const oBinding = oTable.getBinding("items");
+            const sQuery = oEvent.getParameter("query");
+            const oBinding = this.byId("idProductsTable").getBinding("items");
+            const aFilters = sQuery ? [new Filter("name", FilterOperator.Contains, sQuery)] : [];
+            oBinding.filter(aFilters);
 
-            // Filtra a tabela de produtos com base na consulta
-            oBinding.filter(new sap.ui.model.Filter({
-                path: "name",
-                operator: sap.ui.model.FilterOperator.Contains,
-                value1: sQuery
-            }));
+            console.log("onSearchProduct")
         }
     });
 });
