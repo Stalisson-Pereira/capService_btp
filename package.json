@@ -1,0 +1,31 @@
+{
+  "name": "capService_btp",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^8.3.1",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.6",
+    "@cap-js/sqlite": "^1",
+    "@sap/ux-specification": "UI5-1.129"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-btp_ui_manage": "cds watch --open btp_ui_manage/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db/cap-management.sqlite"
+        }
+      }
+    }
+  }
+}

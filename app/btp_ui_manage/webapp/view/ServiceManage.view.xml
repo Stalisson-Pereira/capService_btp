@@ -1,0 +1,136 @@
+<mvc:View controllerName="btpuimanage.controller.ServiceManage"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+
+    <Page id="page" title="{i18n>title}">
+        <ObjectHeader title="Manage Customers and Products" />
+
+        <IconTabBar>
+            <items>
+
+                <!-- Aba de Customers -->
+                <IconTabFilter text="Customers" key="customers" icon="sap-icon://customer-and-contacts">
+                    <SearchField placeholder="Search customer" width="30%" search="onSearchCustomer" />
+
+                    <content>
+                        <VBox>
+                            <Button text="Register Customer" press="onRegisterCustomer" type="Emphasized" />
+                        </VBox>
+
+                        <!-- Dialog para Registrar Cliente -->
+                        <Dialog id="idDialogCustomer" title="Register Customer">
+                            <content>
+                                <VBox>
+                                    <Label text="Name:" />
+                                    <Input id="idInputCustomerName" value="{localData>/newCustomer/name}" placeholder="Customer name" />
+                                    
+                                    <Label text="Contact:" />
+                                    <Input id="idInputCustomerContact" value="{localData>/newCustomer/contact}" placeholder="Customer contact" />
+                                    
+                                    <Label text="Email:" />
+                                    <Input id="idInputCustomerEmail" value="{localData>/newCustomer/email}" placeholder="Customer email" />
+                                </VBox>
+                            </content>
+                            <beginButton>
+                                <Button text="Save" press="onSaveDialogCustomer" />
+                            </beginButton>
+                            <endButton>
+                                <Button text="Cancel" press="onCloseDialogCustomer" />
+                            </endButton>
+                        </Dialog>
+
+                        <!-- Tabela de Clientes -->
+                        <Table id="idCustomersTable" items="{/Customers}">
+                            <columns>
+                                <Column>
+                                    <Text text="Name" />
+                                </Column>
+                                <Column>
+                                    <Text text="Contact" />
+                                </Column>
+                                <Column>
+                                    <Text text="Email" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{description}" />
+                                        <Text text="{contact}" />
+                                        <Text text="{email}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </IconTabFilter>
+
+                <!-- Aba de Products -->
+                <IconTabFilter text="Products" key="products" icon="sap-icon://product">
+                    <SearchField placeholder="Search product" width="30%" search="onSearchProduct" />
+
+                    <content>
+                        <VBox>
+                            <Button text="Register Product" press="onRegisterProduct" type="Emphasized" />
+                        </VBox>
+
+                        <!-- Dialog para Registrar Produto -->
+                        <Dialog id="idDialogProduct" title="Register Product">
+                            <content>
+                                <VBox>
+                                    <Label text="Name:" />
+                                    <Input id="idInputProductName" placeholder="Product name" />
+                                    
+                                    <Label text="Description:" />
+                                    <Input id="idInputProductDesc" placeholder="Product description" />
+                                    
+                                    <Label text="Price:" />
+                                    <Input id="idInputProductPrice" placeholder="Product price" />
+                                    
+                                    <Label text="Quantity:" />
+                                    <Input id="idInputProductQuant" placeholder="Product quantity" />
+                                </VBox>
+                            </content>
+                            <beginButton>
+                                <Button text="Save" press="onSaveDialogProduct" />
+                            </beginButton>
+                            <endButton>
+                                <Button text="Cancel" press="onCloseDialogProduct" />
+                            </endButton>
+                        </Dialog>
+
+                        <!-- Tabela de Produtos -->
+                        <Table id="idProductsTable" items="{/Products}">
+                            <columns>
+                                <Column>
+                                    <Text text="Name" />
+                                </Column>
+                                <Column>
+                                    <Text text="Description" />
+                                </Column>
+                                <Column>
+                                    <Text text="Price" />
+                                </Column>
+                                <Column>
+                                    <Text text="Stock " />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{name}" />
+                                        <Text text="{descr}" />
+                                        <Text text="{price}" />
+                                        <Text text="{stock}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </IconTabFilter>
+
+            </items>
+        </IconTabBar>
+    </Page>
+</mvc:View>
