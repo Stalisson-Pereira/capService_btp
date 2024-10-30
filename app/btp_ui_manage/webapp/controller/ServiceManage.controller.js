@@ -40,7 +40,7 @@ sap.ui.define([
             const oNewCustomer = oModel.getProperty("/newCustomer");
 
             // Adiciona o novo cliente à lista de clientes
-            let aCustomers = oModel.getProperty("/Customers");
+            const aCustomers = oModel.getProperty("/Customers");
             aCustomers.push({
                 description: oNewCustomer.name,
                 contact: oNewCustomer.contact,
@@ -52,8 +52,6 @@ sap.ui.define([
             MessageToast.show("Cliente registrado com sucesso!");
             oModel.setProperty("/newCustomer", { name: "", contact: "", email: "" });
             this.byId("idDialogCustomer").close();
-
-            console.log("onSaveDialogCustomer")
         },
 
         onCloseDialogCustomer: function () {
@@ -69,13 +67,13 @@ sap.ui.define([
             const oModel = this.getView().getModel("localData");
             const oNewProduct = {
                 name: this.byId("idInputProductName").getValue(),
-                descr: this.byId("idInputProductDesc").getValue(),
+                description: this.byId("idInputProductDesc").getValue(),
                 price: parseFloat(this.byId("idInputProductPrice").getValue()) || 0,
-                stock: parseInt(this.byId("idInputProductQuant").getValue(), 10) || 0
+                quantity: parseInt(this.byId("idInputProductQuant").getValue(), 10) || 0
             };
 
             // Adiciona o novo produto à lista de produtos
-            let aProducts = oModel.getProperty("/Products");
+            const aProducts = oModel.getProperty("/Products");
             aProducts.push(oNewProduct);
             oModel.setProperty("/Products", aProducts);
 
@@ -86,8 +84,6 @@ sap.ui.define([
             this.byId("idInputProductPrice").setValue("");
             this.byId("idInputProductQuant").setValue("");
             this.byId("idDialogProduct").close();
-
-            console.log("onSaveDialogProduct")
         },
 
         onCloseDialogProduct: function () {
@@ -100,8 +96,6 @@ sap.ui.define([
             const oBinding = this.byId("idCustomersTable").getBinding("items");
             const aFilters = sQuery ? [new Filter("description", FilterOperator.Contains, sQuery)] : [];
             oBinding.filter(aFilters);
-
-            console.log("onSearchCustomer")
         },
 
         onSearchProduct: function (oEvent) {
@@ -109,8 +103,6 @@ sap.ui.define([
             const oBinding = this.byId("idProductsTable").getBinding("items");
             const aFilters = sQuery ? [new Filter("name", FilterOperator.Contains, sQuery)] : [];
             oBinding.filter(aFilters);
-
-            console.log("onSearchProduct")
         }
     });
 });
