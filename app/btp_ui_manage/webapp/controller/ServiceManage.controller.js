@@ -19,9 +19,9 @@ sap.ui.define([
                 },
                 newProduct: {
                     name: "",
-                    description: "",
+                    descr: "",
                     price: null,
-                    quantity: null
+                    stock: null
                 },
                 Customers: [],
                 Products: []
@@ -67,9 +67,9 @@ sap.ui.define([
             const oModel = this.getView().getModel("localData");
             const oNewProduct = {
                 name: this.byId("idInputProductName").getValue(),
-                description: this.byId("idInputProductDesc").getValue(),
+                descr: this.byId("idInputProductDesc").getValue(),
                 price: parseFloat(this.byId("idInputProductPrice").getValue()) || 0,
-                quantity: parseInt(this.byId("idInputProductQuant").getValue(), 10) || 0
+                stock: parseInt(this.byId("idInputProductQuant").getValue(), 10) || 0
             };
 
             // Adiciona o novo produto à lista de produtos
@@ -82,7 +82,7 @@ sap.ui.define([
             this.byId("idInputProductName").setValue("");
             this.byId("idInputProductDesc").setValue("");
             this.byId("idInputProductPrice").setValue("");
-            this.byId("idInputProductQuant").setValue("");
+            this.byId("idInputProductStock").setValue("");
             this.byId("idDialogProduct").close();
         },
 
