@@ -41,7 +41,7 @@
                         </Dialog>
 
                         <!-- Tabela de Clientes -->
-                        <Table id="idCustomersTable" items="{/Customers}">
+                        <Table id="idCustomersTable" items="{localData>/Customers}">
                             <columns>
                                 <Column>
                                     <Text text="Name" />
@@ -56,9 +56,9 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <Text text="{description}" />
-                                        <Text text="{contact}" />
-                                        <Text text="{email}" />
+                                        <Text text="{localData>description}" />
+                                        <Text text="{localData>contact}" />
+                                        <Text text="{localData>email}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -101,7 +101,7 @@
                         </Dialog>
 
                         <!-- Tabela de Produtos -->
-                        <Table id="idProductsTable" items="{/Products}">
+                        <Table id="idProductsTable" items="{localData>/Products}">
                             <columns>
                                 <Column>
                                     <Text text="Name" />
@@ -113,16 +113,16 @@
                                     <Text text="Price" />
                                 </Column>
                                 <Column>
-                                    <Text text="Stock " />
+                                    <Text text="Stock" />
                                 </Column>
                             </columns>
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <Text text="{name}" />
-                                        <Text text="{descr}" />
-                                        <Text text="{price}" />
-                                        <Text text="{stock}" />
+                                        <Text text="{localData>name}" />
+                                        <Text text="{localData>description}" />
+                                        <Text text="{localData>price}" />
+                                        <Text text="{localData>quantity}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
