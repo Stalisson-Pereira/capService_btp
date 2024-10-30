@@ -88,8 +88,8 @@
                                     <Label text="Price:" />
                                     <Input id="idInputProductPrice" placeholder="Product price" />
                                     
-                                    <Label text="Quantity:" />
-                                    <Input id="idInputProductQuant" placeholder="Product quantity" />
+                                    <Label text="Stock:" />
+                                    <Input id="idInputProductStock" placeholder="Product quantity" />
                                 </VBox>
                             </content>
                             <beginButton>
@@ -120,9 +120,9 @@
                                 <ColumnListItem>
                                     <cells>
                                         <Text text="{localData>name}" />
-                                        <Text text="{localData>description}" />
+                                        <Text text="{localData>descr}" />
                                         <Text text="{localData>price}" />
-                                        <Text text="{localData>quantity}" />
+                                        <Text text="{localData>stock}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
